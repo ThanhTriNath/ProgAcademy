@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perl – ProgAcademy</title>
+    <link rel="icon" href="Logo.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Fira+Code:400,700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #2563eb; --accent: #38bdf8; --glass-bg: rgba(255,255,255,0.88);}
+        body { margin: 0; font-family: 'Montserrat', Arial, sans-serif; background: radial-gradient(ellipse at 60% 25%, #e0e7ff 20%, #f7fafc 100%); min-height: 100vh;}
+        header { background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%); color: #fff; position: sticky; top: 0; z-index: 10; border-bottom: 2px solid #38bdf8; box-shadow: 0 2px 16px 0 rgba(56,189,248,0.11);}
+        nav { display: flex; align-items: center; justify-content: space-between; max-width: 1190px; margin: 0 auto; padding: 0 2rem; height: 68px;}
+        .logo { font-weight: 900; font-size: 2.1rem; display: flex; align-items: center; background: linear-gradient(90deg, #f7fafc 30%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 3px 24px #2563eb25;}
+        .logo img { height: 36px; width: 36px; margin-right: 0.8rem; border-radius: 12px; background: #fff;}
+        ul.menu { list-style: none; display: flex; gap: 1.2rem; margin: 0; padding: 0;}
+        ul.menu > li { position: relative; }
+        ul.menu > li > a, .dropdown-btn { color: #fff; text-decoration: none; font-weight: 700; font-size: 1.05em; padding: 0.7em 1.3em; border-radius: 8px; transition: background .17s, color .17s; cursor: pointer;}
+        ul.menu > li > a:hover, .dropdown-btn:hover { background: var(--accent); color: #fff;}
+        .dropdown { position: absolute; top: 56px; left: 0; background: var(--glass-bg); color: var(--primary); min-width: 220px; box-shadow: 0 12px 32px 0 #2563eb26; border-radius: 0 0 20px 20px; display: none; flex-direction: column; z-index: 100; backdrop-filter: blur(7px); border: 1px solid #e0e7ff; max-height: 65vh; overflow-y: auto; overscroll-behavior: contain;}
+        .dropdown a { color: var(--primary); padding: 0.9rem 1.4rem; text-decoration: none; border-radius: 0; transition: background 0.16s, color 0.15s; font-weight: 600;}
+        .dropdown a:hover { background: var(--accent); color: #fff;}
+        ul.menu > li:hover .dropdown, ul.menu > li:focus-within .dropdown, ul.menu > li.show .dropdown { display: flex;}
+        main { max-width: 730px; margin: 2.7rem auto 2.1rem auto; background: var(--glass-bg); border-radius: 28px; box-shadow: 0 4px 40px 0 rgba(38,99,235,0.13); padding: 2.7rem 2.2rem;}
+        .langage-card { display: flex; align-items: flex-start; background: rgba(56,189,248,0.08); border-radius: 16px; padding: 1.85rem 1.5rem; box-shadow: 0 2px 22px 0 #38bdf81a; border: 1.7px solid #e0e7ff; position: relative; overflow: hidden;}
+        .langage-logo { font-size: 3.55rem; margin-right: 2.2rem; flex-shrink: 0; min-width: 62px; text-align: center; filter: drop-shadow(0 2px 18px #38bdf8b1); z-index: 1;}
+        .langage-info { flex: 1; min-width: 220px; z-index: 1;}
+        .langage-info h1 { color: var(--primary); font-size: 2rem; margin: 0 0 0.6rem 0; font-weight: 900; background: linear-gradient(90deg, #2563eb 40%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;}
+        .langage-tags { font-size: 1.08em; margin-bottom: 0.8em; display: flex; flex-wrap: wrap; gap: 0.55em;}
+        .langage-tags span { background: linear-gradient(90deg, #2563eb 30%, #38bdf8 100%); color: #fff; border-radius: 6px; padding: 3.5px 13px; font-size: 0.98em; display: inline-block; font-weight: 700; box-shadow: 0 1px 8px #38bdf876; letter-spacing: .6px; margin-bottom: 0.2em;}
+        .langage-info p { font-family: 'Fira Code', monospace; font-size: 1.05em;}
+        .langage-info a { color: var(--primary); font-weight: 700; text-decoration: underline; transition: color .13s, text-shadow .16s;}
+        .langage-info a:hover { color: #fff; background: var(--primary); border-radius: 4px; text-decoration: none; padding: 0 0.18em;}
+        .back-link { display: inline-block; margin: 2em 0 0 0; color: var(--primary); font-weight: 700; text-decoration: none; background: #e0e7ff; padding: 0.5em 1.2em; border-radius: 8px; box-shadow: 0 1px 6px #38bdf84a; transition: background .17s;}
+        .back-link:hover { background: #38bdf8; color: #fff;}
+        @media (max-width: 700px) { nav { padding: 0 0.5rem; } main { padding: 1.2rem 0.5rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <span class="logo">
+                <img src="Logo.ico" alt="Logo ProgAcademy">
+                ProgAcademy
+            </span>
+            <ul class="menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li>
+                    <span class="dropdown-btn" tabindex="0">Langages ▼</span>
+                    <div class="dropdown">
+                        <a href="python.html">🐍 Python</a>
+                        <a href="javascript.html">🟨 JavaScript</a>
+                        <a href="java.html">☕ Java</a>
+                        <a href="cpp.html">💻 C++</a>
+                        <a href="php.html">🐘 PHP</a>
+                        <a href="csharp.html">#️⃣ C#</a>
+                        <a href="typescript.html">🔵 TypeScript</a>
+                        <a href="ruby.html">💎 Ruby</a>
+                        <a href="go.html">🐹 Go</a>
+                        <a href="rust.html">🦀 Rust</a>
+                        <a href="swift.html">🍏 Swift</a>
+                        <a href="kotlin.html">🅺 Kotlin</a>
+                        <a href="scala.html">⚛️ Scala</a>
+                        <a href="dart.html">🎯 Dart</a>
+                        <a href="haskell.html">🟪 Haskell</a>
+                        <a href="perl.html">🐪 Perl</a>
+                        <a href="elixir.html">💧 Elixir</a>
+                        <a href="lua.html">🌙 Lua</a>
+                        <a href="matlab.html">📊 MATLAB</a>
+                        <a href="r.html">📈 R</a>
+                    </div>
+                </li>
+                <li><a href="index.html#conseils">Conseils</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="langage-card">
+            <div class="langage-logo">🐪</div>
+            <div class="langage-info">
+                <h1>Perl</h1>
+                <div class="langage-tags">
+                    <span>Scripts</span>
+                    <span>Texte</span>
+                    <span>Systèmes</span>
+                </div>
+                <p>
+                    Perl est connu pour sa puissance dans le traitement de texte, l'automatisation système et la manipulation de fichiers. Il reste populaire pour l'administration système et le scripting.
+                </p>
+                <p>
+                    <strong>Utilisations courantes :</strong> Scripts, analyse de texte, administration système.<br>
+                    <strong>Ressources :</strong>
+                    <a href="https://perldoc.perl.org/" target="_blank">Documentation Perl</a>
+                </p>
+            </div>
+        </div>
+        <a class="back-link" href="index.html">&larr; Retour à l'accueil</a>
+    </main>
+    <script>
+        // MENU Dropdown
+        const dropdownBtn = document.querySelector('.dropdown-btn');
+        const dropdownParent = dropdownBtn.parentElement;
+        dropdownBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dropdownParent.classList.toggle('show');
+        });
+        document.addEventListener('click', (e) => {
+            if (!dropdownParent.contains(e.target)) {
+                dropdownParent.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

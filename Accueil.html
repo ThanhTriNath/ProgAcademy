@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProgAcademy – Accueil</title>
+    <link rel="icon" href="Logo.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Fira+Code:400,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --accent: #38bdf8;
+            --glass-bg: rgba(255,255,255,0.88);
+        }
+        body {
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: radial-gradient(ellipse at 60% 25%, #e0e7ff 20%, #f7fafc 100%);
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 2px solid #38bdf8;
+            box-shadow: 0 2px 16px 0 rgba(56,189,248,0.11);
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1190px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 68px;
+        }
+        .logo {
+            font-weight: 900;
+            font-size: 2.1rem;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(90deg, #f7fafc 30%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 3px 24px #2563eb25;
+        }
+        .logo img {
+            height: 36px;
+            width: 36px;
+            margin-right: 0.8rem;
+            border-radius: 12px;
+            background: #fff;
+        }
+        /* Menu Desktop */
+        .menu-list {
+            list-style: none;
+            display: flex;
+            gap: 1.2rem;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+        .menu-list > li { position: relative; }
+        .menu-list > li > a, .dropdown-btn {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05em;
+            padding: 0.7em 1.3em;
+            border-radius: 8px;
+            transition: background .17s, color .17s;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .menu-list > li > a:hover, .dropdown-btn:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+        .dropdown {
+            position: absolute;
+            top: 56px;
+            left: 0;
+            background: var(--glass-bg);
+            color: var(--primary);
+            min-width: 220px;
+            box-shadow: 0 12px 32px 0 #2563eb26;
+            border-radius: 0 0 20px 20px;
+            display: none;
+            flex-direction: column;
+            z-index: 100;
+            backdrop-filter: blur(7px);
+            border: 1px solid #e0e7ff;
+            max-height: 65vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+        .dropdown a {
+            color: var(--primary);
+            padding: 0.9rem 1.4rem;
+            text-decoration: none;
+            border-radius: 0;
+            transition: background 0.16s, color 0.15s;
+            font-weight: 600;
+        }
+        .dropdown a:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+        .menu-list > li:hover .dropdown,
+        .menu-list > li:focus-within .dropdown,
+        .menu-list > li.show .dropdown {
+            display: flex;
+        }
+
+        /* Bouton Menu Mobile */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+            align-items: center;
+            gap: 0.5em;
+        }
+        .mobile-menu-btn .triangle {
+            display: inline-block;
+            font-size: 1.13em;
+            margin-left: 0.3em;
+            transition: transform 0.2s;
+        }
+        .mobile-menu-btn.open .triangle {
+            transform: rotate(180deg);
+        }
+
+        /* Menu Mobile */
+        @media (max-width: 750px) {
+            nav {
+                height: auto;
+                flex-wrap: wrap;
+                padding: 0 0.6em;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .mobile-menu-btn {
+                display: flex;
+                margin-left: auto;
+            }
+            .menu-list {
+                flex-direction: column;
+                align-items: stretch;
+                width: 100vw;
+                position: absolute;
+                left: 0;
+                top: 68px;
+                background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
+                box-shadow: 0 11px 32px -3px #2563eb33;
+                border-bottom-left-radius: 22px;
+                border-bottom-right-radius: 22px;
+                border-top: 1.5px solid #e0e7ff;
+                display: none;
+                z-index: 999;
+            }
+            .menu-list.open {
+                display: flex;
+            }
+            .menu-list > li {
+                width: 100%;
+            }
+            .menu-list > li > a, .dropdown-btn {
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 1.1em 2em;
+                font-size: 1.1em;
+                border-radius: 0;
+                border-bottom: 1px solid #2563eb22;
+            }
+            /* Cacher le dropdown desktop */
+            .dropdown {
+                display: none !important;
+            }
+            /* Sous menu déroulant mobile */
+            .dropdown-mobile {
+                display: none;
+                flex-direction: column;
+                background: var(--glass-bg);
+                color: var(--primary);
+                padding: 0 1em 1em 1.5em;
+                border-left: 4px solid var(--accent);
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 4px 24px #2563eb1a;
+                margin-bottom: 0.5em;
+                margin-top: -0.5em;
+            }
+            .dropdown-mobile a {
+                color: var(--primary);
+                padding: 0.8em 0.6em;
+                text-decoration: none;
+                font-weight: 600;
+                border-radius: 7px;
+                margin-bottom: 2px;
+                transition: background 0.15s, color 0.15s;
+            }
+            .dropdown-mobile a:hover {
+                background: var(--accent);
+                color: #fff;
+            }
+            li.show .dropdown-mobile {
+                display: flex;
+            }
+        }
+        main {
+            max-width: 980px;
+            margin: 2.7rem auto 2.1rem auto;
+            background: var(--glass-bg);
+            border-radius: 28px;
+            box-shadow: 0 4px 40px 0 rgba(38,99,235,0.13);
+            padding: 2.7rem 2.2rem;
+        }
+        h1, h2 {
+            color: var(--primary);
+            font-weight: 900;
+        }
+        h1 {
+            font-size: 2.6rem;
+            margin-bottom: .7em;
+            background: linear-gradient(92deg, #2563eb 40%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 3px 24px #2563eb24;
+        }
+        h2 { font-size: 1.44rem; margin-bottom: .7em; }
+        ul {
+            padding-left: 1.2em;
+        }
+        ul li {
+            margin-bottom: 0.5em;
+            font-size: 1.09em;
+            line-height: 1.6;
+        }
+        section#contact {
+            margin-top: 2.8em;
+            background: linear-gradient(90deg, #e0e7ff 60%, #f7fafc 100%);
+            border-radius: 14px;
+            padding: 1.1em 1.15em .9em 1.3em;
+            box-shadow: 0 1px 7px #2563eb22;
+        }
+        section#contact a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: underline;
+        }
+        .big-dropdown {
+            margin: 2.5em 0 3em 0;
+            background: rgba(38,99,235,0.05);
+            border-radius: 14px;
+            padding: 2em 1.5em;
+            box-shadow: 0 2px 22px 0 #38bdf81a;
+            border: 1.7px solid #e0e7ff;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .big-dropdown-header {
+            font-size: 1.22em;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: 0.8em;
+            border-bottom: 2px solid #e0e7ff;
+            margin-bottom: 1.2em;
+        }
+        .big-dropdown-header span {
+            margin-right: 0.8em;
+            font-size: 1.5em;
+        }
+        .big-dropdown-content {
+            display: none;
+            flex-direction: column;
+            gap: 0.7em;
+            margin-top: 1em;
+        }
+        .big-dropdown.open .big-dropdown-content {
+            display: flex;
+        }
+        .big-dropdown-content a {
+            display: flex;
+            align-items: center;
+            gap: 0.7em;
+            background: linear-gradient(90deg, #2563eb 30%, #38bdf8 100%);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.08em;
+            padding: 0.7em 1.3em;
+            text-decoration: none;
+            transition: background .18s, box-shadow .18s, transform .16s;
+            box-shadow: 0 1px 6px #38bdf84a;
+        }
+        .big-dropdown-content a:hover {
+            background: linear-gradient(90deg, #38bdf8 0%, #2563eb 100%);
+            box-shadow: 0 2px 18px #38bdf866;
+            transform: translateY(-3px) scale(1.04);
+        }
+        .exemples-section, .info-section {
+            margin: 2.8em 0 2.8em 0;
+        }
+        .exemples-section h2, .info-section h2 {
+            margin-bottom: 0.8em;
+        }
+        .exemples-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2em 1.5em;
+        }
+        .exemple-card {
+            background: #fff;
+            border-radius: 11px;
+            box-shadow: 0 2px 14px #2563eb18;
+            padding: 1.2em 1.1em 0.6em 1.1em;
+            width: 270px;
+            min-width: 220px;
+            flex: 1 1 200px;
+            border: 1px solid #e0e7ff;
+        }
+        .exemple-card h3 {
+            color: var(--primary);
+            font-size: 1.12em;
+            margin: 0 0 0.4em 0;
+        }
+        .exemple-card code {
+            background: #f7fafc;
+            display: block;
+            color: #2563eb;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.98em;
+            padding: 0.5em 0.8em;
+            border-radius: 5px;
+            margin: 0.4em 0 0.7em 0;
+            overflow-x: auto;
+        }
+        .info-section {
+            background: #f6fafd;
+            border-radius: 12px;
+            padding: 2em 1.3em 1.3em 1.3em;
+            border: 1px solid #e0e7ff;
+            box-shadow: 0 1px 8px #38bdf81a;
+        }
+        @media (max-width: 850px) {
+            .exemples-cards {
+                flex-direction: column;
+                gap: 1.2em;
+            }
+            main { padding: 1.2rem 0.6rem; }
+        }
+        @media (max-width: 600px) {
+            .big-dropdown, .info-section { padding: 1em 0.4em; }
+            .exemple-card { width: 100%; min-width: 0; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <span class="logo">
+                <img src="Logo.ico" alt="Logo ProgAcademy">
+                ProgAcademy
+            </span>
+            <button class="mobile-menu-btn" aria-label="Menu principal" aria-expanded="false" aria-controls="mainmenu">
+                Menu <span class="triangle">▼</span>
+            </button>
+            <ul class="menu-list" id="mainmenu">
+                <li><a href="#accueil">Accueil</a></li>
+                <li>
+                    <span class="dropdown-btn" tabindex="0">Langages ▼</span>
+                    <div class="dropdown">
+                        <a href="#python">Python</a>
+                        <a href="#javascript">JavaScript</a>
+                        <a href="#java">Java</a>
+                        <a href="#cpp">C++</a>
+                        <a href="#php">PHP</a>
+                        <a href="#csharp">C#</a>
+                        <a href="#typescript">TypeScript</a>
+                        <a href="#ruby">Ruby</a>
+                        <a href="#go">Go</a>
+                        <a href="#rust">Rust</a>
+                        <a href="#swift">Swift</a>
+                        <a href="#kotlin">Kotlin</a>
+                        <a href="#scala">Scala</a>
+                        <a href="#dart">Dart</a>
+                        <a href="#haskell">Haskell</a>
+                        <a href="#perl">Perl</a>
+                        <a href="#elixir">Elixir</a>
+                        <a href="#lua">Lua</a>
+                        <a href="#matlab">MATLAB</a>
+                        <a href="#r">R</a>
+                    </div>
+                </li>
+                <li><a href="#conseils">Conseils</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="accueil">
+            <h1>Bienvenue sur ProgAcademy ! 🚀</h1>
+            <p>
+                Explorez les langages de programmation les plus populaires, leurs usages, points forts et ressources pour progresser.<br>
+                <span style="background: linear-gradient(90deg,#2563eb, #38bdf8); color: #fff; padding: 0.22em 0.7em; border-radius: 9px; font-weight: 800; box-shadow: 0 2px 14px #38bdf87c;"><br/>Découvrez chaque langage via le menu déroulant</span> ci-dessus ou ouvrez le menu spécial ci-dessous !
+            </p>
+            <div class="big-dropdown" id="langages-dropdown">
+                <div class="big-dropdown-header" tabindex="0">
+                    <span>💡</span> Explorer tous les langages de programmation
+                </div>
+                </div>
+            </div>
+        </section>
+        <section class="info-section">
+            <h2>Pourquoi apprendre un langage de programmation ?</h2>
+            <ul>
+                <li><strong>Ouvrir de nouvelles opportunités professionnelles</strong> dans la tech, la data, le web, la cybersécurité, la robotique, la finance…</li>
+                <li><strong>Automatiser des tâches</strong> répétitives et gagner du temps au quotidien</li>
+                <li><strong>Comprendre le fonctionnement des outils numériques</strong> qui nous entourent</li>
+                <li><strong>Développer des applications et sites web</strong> pour donner vie à vos idées</li>
+                <li><strong>Participer à des projets open-source</strong> et rejoindre une communauté mondiale</li>
+                <li><strong>Stimuler votre logique et votre créativité</strong> grâce à la résolution de problèmes</li>
+            </ul>
+        </section>
+        <section class="exemples-section">
+            <h2>Exemples de code dans différents langages</h2>
+            <div class="exemples-cards">
+                <div class="exemple-card">
+                    <h3>Python</h3>
+                    <code>print("Hello, world!")</code>
+                    <p>Simple, lisible et idéal pour les débutants.</p>
+                </div>
+                <div class="exemple-card">
+                    <h3>JavaScript</h3>
+                    <code>console.log("Hello, world!");</code>
+                    <p>Le langage du web pour rendre vos pages interactives.</p>
+                </div>
+                <div class="exemple-card">
+                    <h3>Java</h3>
+                    <code>System.out.println("Hello, world!");</code>
+                    <p>Robuste et utilisé dans l’industrie et Android.</p>
+                </div>
+                <div class="exemple-card">
+                    <h3>C++</h3>
+                    <code>#include &lt;iostream&gt;
+<br>int main() { std::cout &lt;&lt; "Hello, world!"; }</code>
+                    <p>La performance au service des applications exigeantes.</p>
+                </div>
+                <div class="exemple-card">
+                    <h3>PHP</h3>
+                    <code>&lt;?php echo "Hello, world!"; ?&gt;</code>
+                    <p>Le langage historique du web côté serveur.</p>
+                </div>
+            </div>
+        </section>
+        <section id="conseils">
+            <h2>Conseils pour apprendre un langage</h2>
+            <ul>
+                <li>Commencez par les bases : variables, conditions, boucles</li>
+                <li>Pratiquez régulièrement avec de petits projets</li>
+                <li>Lisez la documentation officielle</li>
+                <li>Participez à des communautés ou forums</li>
+                <li>Progressez avec des exercices adaptés à votre niveau</li>
+                <li>Contribuez à des projets open source pour progresser en conditions réelles</li>
+            </ul>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>
+                Une question ? Écrivez-nous à <a href="mailto:orionproject.formations@outlook.com">orionproject.formations@outlook.com</a>
+            </p>
+        </section>
+    </main>
+    <script>
+        // Gestion du menu mobile principal
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const menuList = document.querySelector('.menu-list');
+        mobileMenuBtn.addEventListener('click', function() {
+            menuList.classList.toggle('open');
+            mobileMenuBtn.classList.toggle('open');
+            mobileMenuBtn.setAttribute('aria-expanded', menuList.classList.contains('open') ? 'true' : 'false');
+        });
+        // Fermer menu mobile au clic extérieur
+        document.addEventListener('click', function(e) {
+            if (!menuList.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                menuList.classList.remove('open');
+                mobileMenuBtn.classList.remove('open');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Sous-menu "Langages"
+        function isMobile() {
+            return window.matchMedia('(max-width: 750px)').matches;
+        }
+        const dropdownBtn = document.querySelector('.dropdown-btn');
+        const dropdownParent = dropdownBtn.parentElement;
+        const dropdownMobile = dropdownParent.querySelector('.dropdown-mobile');
+        dropdownBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            dropdownParent.classList.toggle('show');
+            dropdownBtn.setAttribute('aria-expanded', dropdownParent.classList.contains('show') ? 'true' : 'false');
+        });
+        // Accessibilité clavier sous-menu
+        dropdownBtn.addEventListener('keydown', function(e) {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                dropdownParent.classList.toggle('show');
+                dropdownBtn.setAttribute('aria-expanded', dropdownParent.classList.contains('show') ? 'true' : 'false');
+            }
+        });
+        // Fermer dropdown si clic extérieur
+        document.addEventListener('click', function(e) {
+            if (!dropdownParent.contains(e.target) && !dropdownBtn.contains(e.target)) {
+                dropdownParent.classList.remove('show');
+                dropdownBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+        // Fermer menu/menus si resize
+        window.addEventListener('resize', function() {
+            if (!isMobile()) {
+                menuList.classList.remove('open');
+                mobileMenuBtn.classList.remove('open');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                dropdownParent.classList.remove('show');
+                dropdownBtn.setAttribute('aria-expanded', 'false');
+            } else {
+                dropdownParent.classList.remove('show');
+                dropdownBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Big dropdown custom
+        const bigDropdown = document.getElementById('langages-dropdown');
+        const bigDropdownHeader = bigDropdown.querySelector('.big-dropdown-header');
+        bigDropdownHeader.addEventListener('click', () => {
+            bigDropdown.classList.toggle('open');
+        });
+        bigDropdownHeader.addEventListener('keydown', (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                bigDropdown.classList.toggle('open');
+                e.preventDefault();
+            }
+        });
+        // Fermer le big-dropdown si on clique dehors
+        document.addEventListener('click', function(e){
+            if (!bigDropdown.contains(e.target) && bigDropdown.classList.contains('open')) {
+                bigDropdown.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
