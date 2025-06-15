@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>ProgAcademy – Accueil</title>
     <link rel="icon" href="Logo.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Fira+Code:400,700&display=swap" rel="stylesheet">
@@ -12,11 +12,21 @@
             --accent: #38bdf8;
             --glass-bg: rgba(255,255,255,0.88);
         }
+        html {
+            box-sizing: border-box;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        html {
+      scroll-behavior: smooth;
+    }
         body {
             margin: 0;
             font-family: 'Montserrat', Arial, sans-serif;
             background: radial-gradient(ellipse at 60% 25%, #e0e7ff 20%, #f7fafc 100%);
             min-height: 100vh;
+            overflow-x: hidden;
         }
         header {
             background: linear-gradient(90deg, #2563eb 0%, #38bdf8 100%);
@@ -35,6 +45,7 @@
             margin: 0 auto;
             padding: 0 2rem;
             height: 68px;
+            position: relative;
         }
         .logo {
             font-weight: 900;
@@ -54,7 +65,6 @@
             border-radius: 12px;
             background: #fff;
         }
-        /* Menu Desktop */
         .menu-list {
             list-style: none;
             display: flex;
@@ -115,8 +125,6 @@
         .menu-list > li.show .dropdown {
             display: flex;
         }
-
-        /* Bouton Menu Mobile */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -137,8 +145,6 @@
         .mobile-menu-btn.open .triangle {
             transform: rotate(180deg);
         }
-
-        /* Menu Mobile */
         @media (max-width: 750px) {
             nav {
                 height: auto;
@@ -151,6 +157,7 @@
             .mobile-menu-btn {
                 display: flex;
                 margin-left: auto;
+                z-index: 1001;
             }
             .menu-list {
                 flex-direction: column;
@@ -182,11 +189,9 @@
                 border-radius: 0;
                 border-bottom: 1px solid #2563eb22;
             }
-            /* Cacher le dropdown desktop */
             .dropdown {
                 display: none !important;
             }
-            /* Sous menu déroulant mobile */
             .dropdown-mobile {
                 display: none;
                 flex-direction: column;
@@ -198,6 +203,7 @@
                 box-shadow: 0 4px 24px #2563eb1a;
                 margin-bottom: 0.5em;
                 margin-top: -0.5em;
+                z-index: 1002;
             }
             .dropdown-mobile a {
                 color: var(--primary);
@@ -257,6 +263,7 @@
             color: var(--primary);
             font-weight: 700;
             text-decoration: underline;
+            word-break: break-all;
         }
         .big-dropdown {
             margin: 2.5em 0 3em 0;
@@ -332,6 +339,7 @@
             min-width: 220px;
             flex: 1 1 200px;
             border: 1px solid #e0e7ff;
+            word-break: break-word;
         }
         .exemple-card h3 {
             color: var(--primary);
@@ -348,6 +356,7 @@
             border-radius: 5px;
             margin: 0.4em 0 0.7em 0;
             overflow-x: auto;
+            word-break: break-word;
         }
         .info-section {
             background: #f6fafd;
@@ -366,13 +375,13 @@
         @media (max-width: 600px) {
             .big-dropdown, .info-section { padding: 1em 0.4em; }
             .exemple-card { width: 100%; min-width: 0; }
+            main { padding: 1.1rem 0.1rem; }
+            .exemples-cards { gap: 0.9em; }
         }
-        .e-mail {
-  word-break: break-all;
-  font-size: 1em;
-  display: inline-block;
-  max-width: 100%;
-}
+        @media (max-width: 420px) {
+            .logo { font-size: 1.08rem; }
+            main { padding: 0.4rem 0.03rem; }
+        }
     </style>
 </head>
 <body>
@@ -390,26 +399,48 @@
                 <li>
                     <span class="dropdown-btn" tabindex="0">Langages ▼</span>
                     <div class="dropdown">
-                        <a href="python.html">Python</a>
-                        <a href="javascript.html">JavaScript</a>
-                        <a href="java.html">Java</a>
-                        <a href="cpp.html">C++</a>
-                        <a href="php.html">PHP</a>
-                        <a href="csharp.html">C#</a>
-                        <a href="typescript.html">TypeScript</a>
-                        <a href="ruby.html">Ruby</a>
-                        <a href="go.html">Go</a>
-                        <a href="rust.html">Rust</a>
-                        <a href="swift.html">Swift</a>
-                        <a href="kotlin.html">Kotlin</a>
-                        <a href="scala.html">Scala</a>
-                        <a href="dart.html">Dart</a>
-                        <a href="haskell.html">Haskell</a>
-                        <a href="perl.html">Perl</a>
-                        <a href="elixir.html">Elixir</a>
-                        <a href="lua.html">Lua</a>
-                        <a href="matlab.html">MATLAB</a>
-                        <a href="r.html">R</a>
+                        <a href="#python">Python</a>
+                        <a href="#javascript">JavaScript</a>
+                        <a href="#java">Java</a>
+                        <a href="#cpp">C++</a>
+                        <a href="#php">PHP</a>
+                        <a href="#csharp">C#</a>
+                        <a href="#typescript">TypeScript</a>
+                        <a href="#ruby">Ruby</a>
+                        <a href="#go">Go</a>
+                        <a href="#rust">Rust</a>
+                        <a href="#swift">Swift</a>
+                        <a href="#kotlin">Kotlin</a>
+                        <a href="#scala">Scala</a>
+                        <a href="#dart">Dart</a>
+                        <a href="#haskell">Haskell</a>
+                        <a href="#perl">Perl</a>
+                        <a href="#elixir">Elixir</a>
+                        <a href="#lua">Lua</a>
+                        <a href="#matlab">MATLAB</a>
+                        <a href="#r">R</a>
+                    </div>
+                    <div class="dropdown-mobile">
+                        <a href="#python">Python</a>
+                        <a href="#javascript">JavaScript</a>
+                        <a href="#java">Java</a>
+                        <a href="#cpp">C++</a>
+                        <a href="#php">PHP</a>
+                        <a href="#csharp">C#</a>
+                        <a href="#typescript">TypeScript</a>
+                        <a href="#ruby">Ruby</a>
+                        <a href="#go">Go</a>
+                        <a href="#rust">Rust</a>
+                        <a href="#swift">Swift</a>
+                        <a href="#kotlin">Kotlin</a>
+                        <a href="#scala">Scala</a>
+                        <a href="#dart">Dart</a>
+                        <a href="#haskell">Haskell</a>
+                        <a href="#perl">Perl</a>
+                        <a href="#elixir">Elixir</a>
+                        <a href="#lua">Lua</a>
+                        <a href="#matlab">MATLAB</a>
+                        <a href="#r">R</a>
                     </div>
                 </li>
                 <li><a href="#conseils">Conseils</a></li>
@@ -427,7 +458,6 @@
             <div class="big-dropdown" id="langages-dropdown">
                 <div class="big-dropdown-header" tabindex="0">
                     <span>💡</span> Explorer tous les langages de programmation
-                </div>
                 </div>
             </div>
         </section>
@@ -463,7 +493,7 @@
                 <div class="exemple-card">
                     <h3>C++</h3>
                     <code>#include &lt;iostream&gt;
-<br>int main() { std::cout &lt;&lt; "Hello, world!"; }</code>
+int main() { std::cout &lt;&lt; "Hello, world!"; }</code>
                     <p>La performance au service des applications exigeantes.</p>
                 </div>
                 <div class="exemple-card">
@@ -487,7 +517,7 @@
         <section id="contact">
             <h2>Contact</h2>
             <p>
-                Une question ? Écrivez-nous à <a href="mailto:orionproject.formations@outlook.com" class="e-mail">orionproject.formations@outlook.com</a>
+                Une question ? Écrivez-nous à <a href="mailto:orionproject.formations@outlook.com">orionproject.formations@outlook.com</a>
             </p>
         </section>
     </main>
@@ -495,12 +525,12 @@
         // Gestion du menu mobile principal
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const menuList = document.querySelector('.menu-list');
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
             menuList.classList.toggle('open');
             mobileMenuBtn.classList.toggle('open');
             mobileMenuBtn.setAttribute('aria-expanded', menuList.classList.contains('open') ? 'true' : 'false');
         });
-        // Fermer menu mobile au clic extérieur
         document.addEventListener('click', function(e) {
             if (!menuList.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
                 menuList.classList.remove('open');
@@ -509,34 +539,53 @@
             }
         });
 
-        // Sous-menu "Langages"
+        // Gestion du sous-menu mobile "Langages"
         function isMobile() {
             return window.matchMedia('(max-width: 750px)').matches;
         }
         const dropdownBtn = document.querySelector('.dropdown-btn');
         const dropdownParent = dropdownBtn.parentElement;
         const dropdownMobile = dropdownParent.querySelector('.dropdown-mobile');
+
+        // On assure que le sous-menu mobile est caché au chargement
+        if (dropdownMobile) dropdownMobile.style.display = 'none';
+
         dropdownBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            dropdownParent.classList.toggle('show');
-            dropdownBtn.setAttribute('aria-expanded', dropdownParent.classList.contains('show') ? 'true' : 'false');
-        });
-        // Accessibilité clavier sous-menu
-        dropdownBtn.addEventListener('keydown', function(e) {
-            if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
+            e.stopPropagation();
+            if (isMobile()) {
+                dropdownParent.classList.toggle('show');
+                dropdownBtn.setAttribute('aria-expanded', dropdownParent.classList.contains('show') ? 'true' : 'false');
+                if(dropdownMobile) {
+                    dropdownMobile.style.display = dropdownParent.classList.contains('show') ? 'flex' : 'none';
+                }
+            } else {
                 dropdownParent.classList.toggle('show');
                 dropdownBtn.setAttribute('aria-expanded', dropdownParent.classList.contains('show') ? 'true' : 'false');
             }
         });
-        // Fermer dropdown si clic extérieur
+        dropdownBtn.addEventListener('keydown', function(e) {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                if (isMobile()) {
+                    dropdownParent.classList.toggle('show');
+                    dropdownBtn.setAttribute('aria-expanded', dropdownParent.classList.contains('show') ? 'true' : 'false');
+                    if(dropdownMobile) {
+                        dropdownMobile.style.display = dropdownParent.classList.contains('show') ? 'flex' : 'none';
+                    }
+                } else {
+                    dropdownParent.classList.toggle('show');
+                    dropdownBtn.setAttribute('aria-expanded', dropdownParent.classList.contains('show') ? 'true' : 'false');
+                }
+            }
+        });
         document.addEventListener('click', function(e) {
             if (!dropdownParent.contains(e.target) && !dropdownBtn.contains(e.target)) {
                 dropdownParent.classList.remove('show');
                 dropdownBtn.setAttribute('aria-expanded', 'false');
+                if (dropdownMobile) dropdownMobile.style.display = 'none';
             }
         });
-        // Fermer menu/menus si resize
         window.addEventListener('resize', function() {
             if (!isMobile()) {
                 menuList.classList.remove('open');
@@ -544,16 +593,19 @@
                 mobileMenuBtn.setAttribute('aria-expanded', 'false');
                 dropdownParent.classList.remove('show');
                 dropdownBtn.setAttribute('aria-expanded', 'false');
+                if (dropdownMobile) dropdownMobile.style.display = 'none';
             } else {
                 dropdownParent.classList.remove('show');
                 dropdownBtn.setAttribute('aria-expanded', 'false');
+                if (dropdownMobile) dropdownMobile.style.display = 'none';
             }
         });
 
         // Big dropdown custom
         const bigDropdown = document.getElementById('langages-dropdown');
         const bigDropdownHeader = bigDropdown.querySelector('.big-dropdown-header');
-        bigDropdownHeader.addEventListener('click', () => {
+        bigDropdownHeader.addEventListener('click', function(e) {
+            e.stopPropagation();
             bigDropdown.classList.toggle('open');
         });
         bigDropdownHeader.addEventListener('keydown', (e) => {
@@ -562,7 +614,6 @@
                 e.preventDefault();
             }
         });
-        // Fermer le big-dropdown si on clique dehors
         document.addEventListener('click', function(e){
             if (!bigDropdown.contains(e.target) && bigDropdown.classList.contains('open')) {
                 bigDropdown.classList.remove('open');
